@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+       <section class="container">
+        <div class="card">
+            <h3>Welcome back👋, test app</h3>
+            <br>
+            <div class="group">
+                <label for="email">Email Address</label>
+                <input type="text" placeholder="example@gmail.com" id="email" name="email">
+            </div>
+
+            <div class="group">
+                <label for="password">Password</label>
+                <input type="password" placeholder="Secret Password" id="password" name="password">
+            </div>
+            <p>Don't have an account <a href="./create.html">Create account</a></p>
+            <button type="button" onclick="loginHanlder()" id="btn">Sign in</button>
+        </div>
+    </section>
+
+
+    <!-- using firebase in our app  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+
+    <script>
+        //taking all input tags to javascript file
+         const email = document.getElementById('email');
+         const password = document.getElementById('password');
+         const btn = document.getElementById('btn')
+
+         const firebaseConfig = {
+    apiKey: "AIzaSyByGFlARpjGvUx4xRPS19BMGRlErr4dlMk",
+    authDomain: "authentication-5fc33.firebaseapp.com",
+    projectId: "authentication-5fc33",
+    storageBucket: "authentication-5fc33.appspot.com",
+    messagingSenderId: "92544895034",
+    appId: "1:92544895034:web:823fe76720817043b30d03",
+    measurementId: "G-8CW37LS5ZX"
+  };
+        const app = firebase.initializeApp(firebaseConfig); //initializing firebase credentials in our website
+        const AuthenticationRoom = firebase.auth();//using firebase feature
+
+       
+
+        function loginHanlder(){
+            btn.innerText = 'Please Wait...'
+            // alert(email.value)
+            // alert(password.value)
+            AuthenticationRoom.signInWithEmailAndPassword(email.value, password.value)
+            .then(function(){
+                //if login is success this function will run
+                alert('Login is Success');
+                window.location.href = './home.html'
+            })
+            .catch(function(error){
+                alert('Login is failed please try again later..')
+                console.log(error.message);
+                
+            })
+
+        }
+
+
+
+
+    </script>
+    
+</body>
+</html>
